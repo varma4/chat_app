@@ -16,7 +16,7 @@ io.on("connection", (socket) => {
   let userName;
   socket.on("join", (name) => {
     userName = name;
-    io.emit("join", userName);
+    // io.emit("join", userName);
     // Notify other users when someone joins with their name
 
     console.log(name, userName);
