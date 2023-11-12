@@ -11,11 +11,11 @@ if (!userName) {
 // Emit the "join" event instead of "chat message"
 socket.emit('join', userName);
 
-const joinedMessage = document.getElementById('joined-message');
+// const joinedMessage = document.getElementById('joined-message');
 
-socket.on('welcome', (msg) => {
-  joinedMessage.textContent = msg + ' has joined the chat.';
-});
+// socket.on('welcome', (msg) => {
+//   joinedMessage.textContent = msg + ' has joined the chat.';
+// });
 
 
 document.getElementById('form').addEventListener('submit', (e) => {
@@ -32,7 +32,6 @@ document.getElementById('form').addEventListener('submit', (e) => {
 });
 
 socket.on('message', (data) => {
-  console.log('Received message:', data); // Debugging statement
 
   const messages = document.getElementById('messages');
   const li = document.createElement('li');

@@ -17,9 +17,7 @@ io.on('connection', (socket) => {
 
   socket.on('join', (name) => {
     userName = name;
-
-
-    socket.broadcast.emit('welcome', userName)
+    socket.broadcast.emit('message', {userName: userName, message: " joined the chat"})
 
 
   });
@@ -32,7 +30,8 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     // Notify other users when someone leaves with their name
     if (userName) {
-      io.emit('message', `${userName} has left the chat.`);
+      // io.emit('message', `${userName} has left the chat.`);
+      socket.broadcast.emit('message', {userName: userName, message: ` has left the chat.`})
     }
   });
 });
