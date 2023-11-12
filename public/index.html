@@ -130,13 +130,13 @@
   </head>
   <body>
     <div id="detailsRoom">
-      <input type="text" id="room_name" placeholder="Room name" />
-      <input type="text" id="user_name" placeholder="Your Name" />
+      <input type="text" id="room_name" autocomplete="off" autofocus placeholder="Room name" />
+      <input type="text" id="user_name" autocomplete="off" placeholder="Your Name" />
       <button onclick="createRoom()">Create / Join Room</button>
     </div>
     <ul id="messages"></ul>
     <div id="chat-room">
-      <input type="text" id="message_input" placeholder="Type your message" />
+      <input type="text" id="message_input" autofocus placeholder="Type your message" />
       <button onclick="sendMessage()">Send</button>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
