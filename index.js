@@ -1,41 +1,38 @@
-const express = require('express');
-const app = express();
-const http = require('http');
-const socketIO = require('socket.io');
+const express = require(`express`)
+const http = require('http')
+const socketIO = require("socket.io")
 
-const server = http.createServer(app);
-const io = socketIO(server);
+const app = express()
+const server = http.createServer(app)
+const io = socketIO(server)
 
-app.use(express.static('public'));
+app.use(express.static('public'))
 
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/public/index.html');
-});
+//io is for all the clients
+io.on('connection', (socket) =>{
+    socket.on('joinRoom', (room, userName) => {
+        socket.join(room)
+        // socket.emit('message', room)
+        // io.to(room).emit('message', `${userName}  has joined`)
+        io.to(room).emit('message', {userName: userName, message: "joined"})
+    })
 
-io.on('connection', (socket) => {
-  let userName;
+    socket.on('sendMessage', (data) => {
+        io.to(data.room).emit('message', { userName: data.userName, message: data.message })
+    })
 
-  socket.on('join', (name) => {
-    userName = name;
-    socket.broadcast.emit('message', {userName: userName, message: " joined the chat"})
+    socket.on('disconnect', () => {
+        console.log('User disconnected');
+    });
+    
+
+} )
 
 
-  });
 
-  socket.on('chatMessage', (data) => {
-    // Broadcast the message along with the user name
-    io.emit('message', { userName: data.userName, message: data.message });
-  });
+const port = 3000
 
-  socket.on('disconnect', () => {
-    // Notify other users when someone leaves with their name
-    if (userName) {
-      // io.emit('message', `${userName} has left the chat.`);
-      socket.broadcast.emit('message', {userName: userName, message: ` has left the chat.`})
-    }
-  });
-});
+server.listen(port, () => {
+    console.log(`up and running on port ${port}`);
+})
 
-server.listen(3000, () => {
-  console.log('Server is up and running on port 3000');
-});
