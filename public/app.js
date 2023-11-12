@@ -5,8 +5,8 @@ let userName = ""
 
 function createRoom() 
 {
-    roomName = document.getElementById("room_name").value
-    userName = document.getElementById("user_name").value
+    roomName = document.getElementById("room_name").value.toLowerCase()
+    userName = document.getElementById("user_name").valuetoLowerCase()
     console.log(roomName, userName);
 
     if (roomName.trim() !== '' && userName !== '') {
