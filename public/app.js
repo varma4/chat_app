@@ -14,18 +14,24 @@ function updateRoomList(rooms) {
 
   rooms.forEach((room) => {
     const li = document.createElement("li");
-    li.style.listStyle = "none"
-    li.style.background = "lightblue"
-    li.style.padding = "5px"
-    li.style.borderRadius = "10px"
-    li.style.textAlign= "center"
-    li.appendChild(document.createTextNode(room));
+    li.style.listStyle = "none";
+    li.style.background = "lightblue";
+    li.style.padding = "5px";
+    li.style.margin = "5px";
+    li.style.borderRadius = "10px";
+    li.style.textAlign = "center";
+
+    const roomInfo = `${room.room} (Users: ${room.userCount})`;
+    li.appendChild(document.createTextNode(roomInfo));
+
     li.addEventListener("click", () => {
-      document.getElementById("room_name").value = room;
+      document.getElementById("room_name").value = room.room;
     });
+
     roomList.appendChild(li);
   });
 }
+
 
 
 
